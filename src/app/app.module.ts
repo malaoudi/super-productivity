@@ -17,7 +17,7 @@ import { FormlyModule } from '@ngx-formly/core';
 import { FormlyMaterialModule } from '@ngx-formly/material';
 import { PagesModule } from './pages/pages.module';
 import { MainHeaderModule } from './core-ui/main-header/main-header.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { MatSidenavModule } from '@angular/material';
 import { TasksModule } from './features/tasks/tasks.module';
 import { TimeTrackingModule } from './features/time-tracking/time-tracking.module';
@@ -28,6 +28,12 @@ import { CoreUiModule } from './core-ui/core-ui.module';
 import { MigrateModule } from './imex/migrate/migrate.module';
 import { GlobalErrorHandler } from './core/error-handler/global-error-handler.class';
 import { MyHammerConfig } from '../hammer-config.class';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+export function createTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
 
 @NgModule({
   declarations: [
@@ -58,6 +64,13 @@ import { MyHammerConfig } from '../hammer-config.class';
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot([]),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: (createTranslateLoader),
+        deps: [HttpClient]
+      }
+    }),
     ReactiveFormsModule,
     FormlyModule.forRoot(),
     FormlyMaterialModule,

@@ -5,8 +5,7 @@ import {
   ElementRef,
   HostListener,
   Inject,
-  OnInit,
-  ViewChild
+  OnInit
 } from '@angular/core';
 import { MatIconRegistry } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -29,7 +28,6 @@ import { IS_ELECTRON } from './app.constants';
 import { GoogleDriveSyncService } from './features/google/google-drive-sync.service';
 import { SwUpdate } from '@angular/service-worker';
 import { BookmarkService } from './features/bookmark/bookmark.service';
-import { slideAnimation } from './ui/animations/slide.ani';
 import { expandAnimation } from './ui/animations/expand.ani';
 import { warpRouteAnimation } from './ui/animations/warp-route';
 import { NoteService } from './features/note/note.service';
@@ -44,7 +42,7 @@ import { fadeAnimation } from './ui/animations/fade.ani';
 import { IS_MAC } from './util/is-mac';
 import { selectIsTaskDataLoaded } from './features/tasks/store/task.selectors';
 import { isTouch } from './util/is-touch';
-import { TaskActionTypes } from './features/tasks/store/task.actions';
+import { TranslateService } from '@ngx-translate/core';
 
 const SIDE_PANEL_BREAKPOINT = 900;
 
@@ -88,10 +86,14 @@ export class AppComponent implements OnInit {
     private _cd: ChangeDetectorRef,
     private _breakPointObserver: BreakpointObserver,
     private _store: Store<any>,
+    private _translateService: TranslateService,
     public readonly layoutService: LayoutService,
     public readonly bookmarkService: BookmarkService,
     public readonly noteService: NoteService,
   ) {
+    this._translateService.setDefaultLang('en');
+    this._translateService.use('en');
+
     this._matIconRegistry.addSvgIcon(
       `sp`,
       this._domSanitizer.bypassSecurityTrustResourceUrl(`assets/icons/sp.svg`)

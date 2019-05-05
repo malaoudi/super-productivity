@@ -7,7 +7,7 @@ import { RouterModule } from '@angular/router';
 import { NotifyModule } from './notify/notify.module';
 import { LocalBackupModule } from '../imex/local-backup/local-backup.module';
 import { BannerModule } from './banner/banner.module';
-import {CompressionModule} from './compression/compression.module';
+import { CompressionModule } from './compression/compression.module';
 
 @NgModule({
   imports: [
