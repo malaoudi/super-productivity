@@ -46,8 +46,8 @@
     "buildSchema": "cd tools/schematics && yarn build && cd ../../ && yarn add file:./tools/schematics"
   },
   "browserslist": [
-    "not IE 9-11",
-    "not dead"
+    "dead",
+    "IE 9-11"
   ],
   "publish": [
     {
