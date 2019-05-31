@@ -46,10 +46,8 @@
     "buildSchema": "cd tools/schematics && yarn build && cd ../../ && yarn add file:./tools/schematics"
   },
   "browserslist": [
-    "last 1 version",
-    "> 1%",
-    "maintained node versions",
-    "not dead"
+    "not dead",
+    "not IE 9-11"
   ],
   "publish": [
     {
