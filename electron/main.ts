@@ -13,6 +13,7 @@ import {errorHandler} from './error-handler';
 import {initDebug} from './debug';
 import {
   IPC_BACKUP,
+  IPC_DOWNLOAD,
   IPC_EXEC,
   IPC_GIT_LOG,
   IPC_IDLE_TIME,
@@ -27,7 +28,7 @@ import {
   IPC_TASK_TOGGLE_START
 } from './ipc-events.const';
 import {backupData} from './backup';
-import electronDl from 'electron-dl';
+import electronDl, {download} from 'electron-dl';
 import {JiraCfg} from '../src/app/features/issue/jira/jira';
 import {KeyboardConfig} from '../src/app/features/config/global-config.model';
 import BrowserWindow = Electron.BrowserWindow;
@@ -176,6 +177,11 @@ ipcMain.on(IPC_SHUTDOWN, quitApp);
 ipcMain.on(IPC_EXEC, exec);
 
 ipcMain.on(IPC_BACKUP, backupData);
+
+ipcMain.on(IPC_DOWNLOAD, (ev, {filename, stringData}) => {
+  const win = BrowserWindow.getFocusedWindow();
+  console.log(await download(win, stringData));
+});
 
 ipcMain.on(IPC_SET_PROGRESS_BAR, (ev, {progress, mode}) => {
   if (mainWin) {
